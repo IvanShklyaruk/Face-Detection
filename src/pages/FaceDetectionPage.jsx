@@ -1,9 +1,9 @@
-import React, { useRef, useEffect } from "react";
-import "./App.css";
+import { useRef, useEffect } from "react";
+import "../App.css";
 import * as tf from "@tensorflow/tfjs";
 import * as facemesh from "@tensorflow-models/face-landmarks-detection";
 import Webcam from "react-webcam";
-import { drawMesh } from "./utilities";
+import { drawMesh } from "../utilities";
 
 function FaceDetectionPage() {
   const webcamRef = useRef(null);
