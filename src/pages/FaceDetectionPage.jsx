@@ -9,14 +9,7 @@ function FaceDetectionPage() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
 
-  //  Load posenet
   const runFacemesh = async () => {
-    // OLD MODEL
-    // const net = await facemesh.load({
-    //   inputResolution: { width: 640, height: 480 },
-    //   scale: 0.8,
-    // });
-    // NEW MODEL
     const net = await facemesh.load(
       facemesh.SupportedPackages.mediapipeFacemesh
     );
@@ -31,27 +24,18 @@ function FaceDetectionPage() {
       webcamRef.current !== null &&
       webcamRef.current.video.readyState === 4
     ) {
-      // Get Video Properties
       const video = webcamRef.current.video;
       const videoWidth = webcamRef.current.video.videoWidth;
       const videoHeight = webcamRef.current.video.videoHeight;
 
-      // Set video width
       webcamRef.current.video.width = videoWidth;
       webcamRef.current.video.height = videoHeight;
 
-      // Set canvas width
       canvasRef.current.width = videoWidth;
       canvasRef.current.height = videoHeight;
 
-      // Make Detections
-      // OLD MODEL
-      //       const face = await net.estimateFaces(video);
-      // NEW MODEL
       const face = await net.estimateFaces({ input: video });
       console.log(face);
-
-      // Get canvas context
       const ctx = canvasRef.current.getContext("2d");
       requestAnimationFrame(() => {
         drawMesh(face, ctx);
